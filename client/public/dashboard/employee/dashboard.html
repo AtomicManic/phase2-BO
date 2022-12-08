@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/dashboard/employee/employeeDash.style.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>dashboard</title>
+  </head>
+  <body>
+    <header>
+      <h1>Dashboard</h1>
+      <a id="logoutBtn">Logout</a>
+    </header>
+    <div class="container">
+      <div class="actionContainer">
+        <button id="askVacationBtn">ask vacation</button>
+        <button id="changeAddressBtn">change address</button>
+      </div>
+      <div class="infoContainer">
+        <h2>Personal Info</h2>
+        <span class="header">Name</span>
+        <span class="nameInfo">{name}</span>
+        <span class="header">Address</span>
+        <span class="addressInfo">{address}</span>
+        <span class="header">Birthday</span>
+        <span class="birthdayInfo">{birthday}</span>
+        <span class="header">Vacation Days</span>
+        <span class="vacationInfo">{vacationDays}</span>
+        <!-- get user by id from token -->
+        <!-- name, email, birthday, vacation days -->
+      </div>
+      <div class="vacationsList">
+        <h2>My Vacations</h2>
+        <div class="vacationItem">
+          <span class="txt">From:</span>
+          <span class="startDate">start</span>
+          <span class="txt">To:</span>
+          <span class="endDate">end</span>
+          <span class="status" id="approved">approved</span>
+        </div>
+        <!-- get all user's vacations from db (id from token) -->
+        <!-- render vacations -->
+      </div>
+    </div>
+    <script src="/dashboard/employee/employeeDash.script.js"></script>
+  </body>
+</html>

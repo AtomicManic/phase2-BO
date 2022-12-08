@@ -1,0 +1,129 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background-color: #e8eddf;
+  margin-bottom: 20px;
+}
+
+.container {
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.actionContainer {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+button {
+  width: 150px;
+  height: 50px;
+  border: none;
+  border-radius: 20px;
+  font-size: 16px;
+
+  background-color: #f5cb5c;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: #f7bd1c;
+}
+
+.infoContainer {
+  height: 225px;
+  width: 400px;
+  padding: 20px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #e8eddf;
+  border-radius: 20px;
+  margin-bottom: 25px;
+}
+
+.infoContainer h2 {
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.header {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.vacationsList {
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.vacationItem {
+  display: flex;
+  flex-direction: row;
+  background-color: #e8eddf;
+  height: 25px;
+  width: 400px;
+  padding: 15px;
+  justify-content: space-between;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.vacationItem span {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.9;
+}
+
+.status {
+  font-weight: bold;
+  border-radius: 20px;
+  width: 150px;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+}
+
+#approved {
+  color: green;
+  background-color: greenyellow;
+}
+
+#cancelled {
+  color: red;
+  background-color: pink;
+}
+
+.txt {
+  font-weight: bold;
+}
