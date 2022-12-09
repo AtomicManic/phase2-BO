@@ -4,53 +4,51 @@ const uploadFileForm = document.getElementById('uploadFileForm');
 const errMsg = document.getElementById("errMsg");
 const validMsg = document.getElementById("validMsg");
 
-
 uploadFileForm.addEventListener("submit" , async e => {
     e.preventDefault();
 
-    const file = {
-        filename: uploadFileEle.files[0].name
-    };
-
-    console.log(file.filename);
-
-try {
-
-    if (!(file)) {
+    if (!uploadFileEle.value) {
         e.preventDefault();
         errMsg.style.display = "block";
     }
-    else {
-        const response = await result(file);
 
-        if (!response || response.message("failed to inset new users")) {
-            errMsg.style.display = "block";
-        } else if (response.message === "bulk complete") {
-            validMsg.style.display = "block";
+    else
+    {
+        try {
+
+            const fileName = uploadFileEle.files[0].name;
+
+            console.log(JSON.stringify(fileName)); //ok
+
+            const data = await bulkImport(fileName);
+
+            if (!data) {
+                errMsg.style.display = "block";
+            }
+            else {
+                validMsg.style.display = "block";
+            }
+        } catch (err) {
+            throw err
         }
     }
-}catch (err) {
-    throw err
-}
 });
 
-uploadFileEle.addEventListener("focus", (e) => {
-    e.preventDefault();
+
+uploadFileEle.addEventListener("focus" , () => {
     errMsg.style.display = "none";
     validMsg.style.display = "none";
 });
 
-const result = async (file) => {
-    const bulkResponse = await fetch(
-        'http://localhost:4000/api/user/bulk-import'  ,{
-            method: 'post',
+
+const bulkImport = async (fileName) => {
+    const response = await fetch(
+        `http://localhost:4000/api/user/bulk-import/${fileName}`  ,{
+            method: "post",
             headers: {
-                "Content-Type": "application/json",
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'POST,PATCH,OPTIONS' },
-            mode: 'no-cors',
-            body: JSON.stringify(file.filename), //undefined in users controller?!
+                "Content-Type": "application/json"
+            }
         });
 
-    return bulkResponse.json();
+    return response.json();
 };
