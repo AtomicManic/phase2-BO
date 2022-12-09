@@ -10,7 +10,10 @@ const {
   addNewUser
 } = require("./../DAL/user.DAL");
 const userErrMsg = require("./../src/errorMesseges/user.errors");
+const CSVtoJSON = require('csvtojson');
 const constants = require("constants");
+const registerValidator = require("./../validators/register.validator");
+const bcrypt = require("bcrypt");
 
 exports.addNewUser = async (req, res, next) => {
   try {
@@ -116,7 +119,10 @@ exports.importCsv = async (req, res , next) => {
 
   try {
     const csvFile = req.params.filename;
-    console.log(csvFile);
+
+    if(!csvFile) {
+      throw new Error("Missing file name");
+    }
 
     CSVtoJSON({
       colParser: {
@@ -128,7 +134,21 @@ exports.importCsv = async (req, res , next) => {
     })
         .fromFile(`data/${csvFile}`)       //from csv file
         .then(async (csvUsers) => {
-          const bulk = await addUsers(req, res, csvUsers);
+
+          const newUsers = [];
+
+          for(const i in csvUsers) {
+
+            const validationResult = registerValidator(csvUsers[i]);
+            if (!validationResult) {
+              throw new Error();
+            }
+            const hashedPassword = await bcrypt.hash(csvUsers[i].password, 12);
+            const user = { ...csvUsers[i], password: hashedPassword };
+            newUsers.push(user);
+          }
+          console.log(newUsers);
+          const bulk = await addUsers(req, res, newUsers);
           if (!bulk) {
             throw new Error("insert failed");
           } else {
