@@ -1,5 +1,6 @@
 const User = require("./../modules/user.module");
 const { isValidObjectId } = require("./../validators/mongoId.validator");
+const bcrypt = require("bcrypt");
 
 const getUserByEmail = async (req, res, next) => {
   let email;
@@ -94,9 +95,16 @@ const handleVacationDays = async (req, res, days, employeeId) => {
 
 const addUsers = async (req, res, csvUsers) => {
   if(!csvUsers) throw new Error("badRequest");
-  const newUsers = await User.insertMany(csvUsers);
-  if(!newUsers) throw new Error("failed to inset new users");
-  return newUsers;
+
+  for(const i in csvUsers) {
+
+    const hashedPassword = await bcrypt.hash(csvUsers[i].password, 12);
+    const user = { ...csvUsers[i], password: hashedPassword };
+    const addedUser = await addNewUser(user);
+    if(!addedUser) throw new Error("failed to inset new users");
+  }
+
+  return ({message: "bulk complete"});
 };
 
 module.exports = {
