@@ -5,8 +5,9 @@
 
 Login service that identify the user's role.
 
-**Manage permissions:** can request vacation for an employee which will automatically approved by the system.
-  can also add, delete employees and edit employee's details.
+**Manage permissions:** 
+  - can request vacation for an employee which will automatically approved by the system.
+  - can add, delete employees and edit employee's details.
    
 **Employee permissions:** can edit his own details and ask for a vacation
   the system will approve employee's request if:
@@ -16,9 +17,9 @@ Login service that identify the user's role.
   with approval, verification email will be sent to the employee. 
 
  **The system**
-   allows bulk import of users to the DB.
-   increases automatically vacation days by 0.3 every day 
-   when user has a birthday the system sends a Happy-Birthday email
+  - allows bulk import of users to the DB.
+  - increases automatically vacation days by 0.3 every day 
+  - when user has a birthday the system sends a Happy-Birthday email
    
  ## Prequisites
  ```
