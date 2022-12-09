@@ -1,7 +1,7 @@
-# phase2-BO
+# phase 2-BO
 
 ## Description
-**Phase2 class assignment - user vacation manager**
+**Phase 2 class assignment - user vacation manager**
 
 Login service that identify the user's role.
 
