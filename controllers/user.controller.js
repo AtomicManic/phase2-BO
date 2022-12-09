@@ -113,11 +113,12 @@ exports.calcVacationDays = async (req, res, next) => {
   }
 };
 
-exports.importCsv = async (req, res) => {
-
-  const csvFileName = JSON.stringify(req.body); //cant get the csv file name from request.body
+exports.importCsv = async (req, res , next) => {
 
   try {
+    const csvFile = req.params.filename;
+    console.log(csvFile);
+
     CSVtoJSON({
       colParser: {
         //change type from string to number
@@ -126,7 +127,7 @@ exports.importCsv = async (req, res) => {
         }
       },
     })
-        .fromFile(`data/users.csv`)       //from csv file
+        .fromFile(`data/${csvFile}`)       //from csv file
         .then(async (csvUsers) => {
           const bulk = await addUsers(req, res, csvUsers);
           if (!bulk) {
@@ -136,10 +137,10 @@ exports.importCsv = async (req, res) => {
           }
         });
   } catch (error) {
-   // next({
-   //   status: userErrMsg[error.message]?.status,
-     // message: userErrMsg[error.message]?.message,
-    throw error;
-   // });
+    next({
+      status: userErrMsg[error.message]?.status,
+      message: userErrMsg[error.message]?.message,
+    });
   }
 }
+
