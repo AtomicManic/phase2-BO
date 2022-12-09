@@ -10,7 +10,6 @@ const {
   addNewUser
 } = require("./../DAL/user.DAL");
 const userErrMsg = require("./../src/errorMesseges/user.errors");
-const CSVtoJSON = require('csvtojson');
 const constants = require("constants");
 
 exports.addNewUser = async (req, res, next) => {
