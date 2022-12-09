@@ -6,13 +6,13 @@
 Login service that identify the user's role.
 
 **Manage permissions:** can request vacation for an employee which will automatically approved by the system.
-  can also add, delete employees and edit employees details.
+  can also add, delete employees and edit employee's details.
    
 **Employee permissions:** can edit his own details and ask for a vacation
   the system will approve employee's request if:
-  the employee has enough days-off
-  no other employee is in vacation on any of the requested days
-  it’s not an holiday
+  - the employee has enough days-off
+  - no other employee is in vacation on any of the requested days
+  - it’s not an holiday
   with approval, verification email will be sent to the employee. 
 
  **The system**
