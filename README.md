@@ -1,21 +1,21 @@
 # phase2-BO
 
 ## Description
-# Phase2 class assignment - user vacation manager
+**Phase2 class assignment - user vacation manager**
 
 Login service that identify the user's role.
 
-*Manage permissions:* can request vacation for an employee which will *automatically approved by the system*.
+**Manage permissions:** can request vacation for an employee which will automatically approved by the system.
   can also add, delete employees and edit employees details.
    
-*Employee permissions:* can edit his own details and ask for a vacation
+**Employee permissions:** can edit his own details and ask for a vacation
   the system will approve employee's request if:
   the employee has enough days-off
   no other employee is in vacation on any of the requested days
   it’s not an holiday
   with approval, verification email will be sent to the employee. 
 
- *The system* 
+ **The system**
    allows bulk import of users to the DB.
    increases automatically vacation days by 0.3 every day 
    when user has a birthday the system sends a Happy-Birthday email
