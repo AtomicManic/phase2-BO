@@ -14,6 +14,7 @@ Login service that identify the user's role.
   - the employee has enough days-off
   - no other employee is in vacation on any of the requested days
   - it’s not an holiday
+  - 
   with approval, verification email will be sent to the employee. 
 
  **The system**
