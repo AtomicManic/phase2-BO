@@ -92,12 +92,15 @@ const handleVacationDays = async (req, res, days, employeeId) => {
   return updatedUser;
 };
 
-const addUsers = async (req, res, newUsers) =>{
-  if(!newUsers) throw new Error("badRequest");
+const addUsers = async (req, res, newUsers) => {
+  if (!newUsers) throw new Error("badRequest");
+  try {
     const addedUser = await User.insertMany(newUsers);
-    if(!addedUser) throw new Error("failed to inset new users");
-
-  return ({message: "bulk complete"});
+    if (!addedUser) throw new Error("insertFailed");
+    return ({message: "bulk complete"});
+  } catch (err) {
+    return ({message: "failed"});
+  }
 };
 
 module.exports = {
