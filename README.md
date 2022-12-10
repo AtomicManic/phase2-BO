@@ -21,6 +21,7 @@ Login service that identify the user's role.
    
  ## Run the project
  
+* .evn file in needed!
 https://back-office-phase2.onrender.com/index.html
 
 ## API Docs
