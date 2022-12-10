@@ -2,6 +2,7 @@
 const uploadFileEle = document.getElementById("fileInput"); //for upload file
 const uploadFileForm = document.getElementById('uploadFileForm');
 const errMsg = document.getElementById("errMsg");
+const declineMsg = document.getElementById("declineMsg");
 const validMsg = document.getElementById("validMsg");
 
 uploadFileForm.addEventListener("submit" , async e => {
@@ -22,8 +23,12 @@ uploadFileForm.addEventListener("submit" , async e => {
 
             const data = await bulkImport(fileName);
 
-            if (!data) {
+            if (!data){
                 errMsg.style.display = "block";
+            }
+
+             else if (data.message === "failed") {
+                declineMsg.style.display = "block";
             }
             else {
                 validMsg.style.display = "block";
@@ -38,6 +43,7 @@ uploadFileForm.addEventListener("submit" , async e => {
 uploadFileEle.addEventListener("focus" , () => {
     errMsg.style.display = "none";
     validMsg.style.display = "none";
+    declineMsg.style.display = "none";
 });
 
 
