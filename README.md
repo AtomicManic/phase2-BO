@@ -38,11 +38,11 @@ create .env file with the following variables:
 Run the server:
 ```
 npm run dev
-``
+```
+Open page login.html with live server
 
 ## API Docs
 ---- missing ---
-
 ## Built with
 - Node.js
 - HTML
