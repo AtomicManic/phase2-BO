@@ -7,7 +7,7 @@ Login service that identify the user's role.
 
 **Manage permissions:** 
   - can request vacation for an employee which will automatically approved by the system.
-  - can add, delete employees and edit their details.
+  - can delete employees and edit their details.
    
 **Employee permissions:** can edit his own details and ask for a vacation.
   the system will approve employee's request if:
@@ -22,27 +22,14 @@ Login service that identify the user's role.
   - increases automatically vacation days by 0.3 every day.
   - when user has a birthday the system sends a Happy-Birthday email.
    
- ## Prequisites
- ```
- Node.js 16v
- ```
-## Installing
-Install dependancies
-```
-npm i
-```
-create .env file with the following variables:
-```
--- missing --
-```
-Run the server:
-```
-npm run dev
-```
-Open page login.html with live server
+ ## Run the project
+ 
+https://back-office-phase2.onrender.com/index.html
 
 ## API Docs
----- missing ---
+
+https://documenter.getpostman.com/view/5840775/2s8YzTTMX9
+
 ## Built with
 - Node.js
 - HTML
@@ -50,5 +37,6 @@ Open page login.html with live server
 - JavaScript
 
 ## Authors
+
 - ***Adva Apelboim*** (AtomicManic) - **TL**, SE student
 - ***Ofir Peleg*** (ofirpeleg) - SE student
