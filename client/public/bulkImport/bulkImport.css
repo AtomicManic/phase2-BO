@@ -54,6 +54,12 @@ p#errMsg {
 
 }
 
+p#declineMsg {
+    background-color: #ffb6c1;
+    border: 1px solid red;
+
+}
+
 p#validMsg{
     background-color: darkseagreen;
     border: 1px solid greenyellow;
