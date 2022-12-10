@@ -1,0 +1,169 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: #333533;
+  font-family: "Roboto", sans-serif;
+}
+
+h1 {
+  margin-top: 20px;
+  margin-left: 15px;
+  color: #cfdbd5;
+  font-size: 50px;
+}
+
+.container {
+  background-color: #e8eddf;
+  color: #333533;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: 50px;
+  width: 500px;
+  height: 350px;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+h2 {
+  margin-bottom: 30px;
+  font-size: 25px;
+  font-weight: 600;
+  margin-left: 15px;
+  margin-top: 25px;
+}
+
+p {
+  text-align: center;
+  margin-bottom: 20px;
+  width: 250px;
+  padding: 10px;
+  border-radius: 15px;
+  align-self: center;
+  display: none;
+  font-weight: lighter;
+}
+
+p#errMsg {
+  background-color: #ffb6c1;
+  border: 1px solid red;
+}
+
+p#declinedMsg {
+  background-color: #ffb6c1;
+  border: 1px solid red;
+}
+
+p#validMsg {
+  background-color: darkseagreen;
+  border: 1px solid greenyellow;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+  /* margin-bottom: 50px; */
+  margin-top: 20px;
+}
+
+label {
+  margin-bottom: 10px;
+  font-size: 14px;
+  margin-top: 8px;
+  font-family: "Roboto", sans-serif;
+  font-weight: lighter;
+}
+
+button {
+  margin-top: 30px;
+  margin-right: 122px;
+  height: 35px;
+  width: 110px;
+  align-self: center;
+  border: none;
+  background-color: #333533;
+  border-radius: 10px;
+  color: white;
+  font-size: 14px;
+}
+
+button:hover {
+  cursor: pointer;
+}
+
+::placeholder {
+  color: gray;
+  font-size: 10px;
+  font-family: "Roboto", sans-serif;
+}
+
+.vacationsContainer {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+  margin-top: 20px;
+}
+
+.vacationItem {
+  display: flex;
+  flex-direction: row;
+  background-color: #e8eddf;
+  height: 35px;
+  width: 520px;
+  padding: 15px;
+  justify-content: space-between;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+
+.vacationItem span {
+  text-align: center;
+  font-size: 16px;
+  line-height: 2;
+}
+
+.status {
+  font-weight: bold;
+  border-radius: 20px;
+  width: 150px;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  align-self: center;
+}
+
+.approved {
+  color: green;
+  background-color: greenyellow;
+}
+
+.cancelled {
+  color: red;
+  background-color: pink;
+}
+
+.txt {
+  font-weight: bold;
+}
+
+.cancelVacationBtn {
+  margin: 0;
+  background-color: red;
+  height: 30px;
+}
+
+#employeeInfo {
+  height: 40px;
+  width: 250px;
+  background-color: #e8eddf;
+  margin: 30px;
+  display: block;
+}

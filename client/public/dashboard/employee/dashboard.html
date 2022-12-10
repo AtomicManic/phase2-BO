@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/dashboard/employee/employeeDash.style.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <title>dashboard</title>
+  </head>
+  <body>
+    <header>
+      <h1>Dashboard</h1>
+      <a id="logoutBtn">Logout</a>
+    </header>
+    <div class="container">
+      <div class="actionContainer">
+        <button id="askVacationBtn">ask vacation</button>
+        <button id="changeAddressBtn">change address</button>
+      </div>
+      <div class="formContainer" id="formContainer">
+        <form method="put" id="addressForm">
+          <label for="addressInput">address:</label>
+          <input type="text" name="address" id="addressInput">
+          <button type="submit">change</button>
+          <button type="button" id="closeBtn">X close</button>
+        </form>
+      </div>
+      <div class="infoContainer">
+        <h2>Personal Info</h2>
+        <span class="header">Name</span>
+        <span id="nameInfo"></span>
+        <span class="header">Address</span>
+        <span id="addressInfo"></span>
+        <span class="header">Birthday</span>
+        <span id="birthdayInfo"></span>
+        <span class="header">Vacation Days</span>
+        <span id="vacationInfo"></span>
+        <!-- get user by id from token -->
+        <!-- name, email, birthday, vacation days -->
+      </div>
+      <div class="vacationsList" id="vacations">
+        <h2>My Vacations</h2>
+        <!-- <div class="vacationItem">
+          <span class="txt">From:</span>
+          <span class="startDate">start</span>
+          <span class="txt">To:</span>
+          <span class="endDate">end</span>
+          <span class="status cancelled"></span>
+        </div> -->
+      </div>
+    </div>
+    <script src="/dashboard/employee/employeeDash.script.js"></script>
+  </body>
+</html>
