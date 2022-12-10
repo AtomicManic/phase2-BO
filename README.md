@@ -20,7 +20,7 @@ Login service that identify the user's role.
   - increases automatically vacation days by 0.3 every day.
    
  ## Run the project
- .evn file in needed!
+ .evn file is needed
  
 https://back-office-phase2.onrender.com/index.html
 
