@@ -25,7 +25,7 @@ window.onload = async () => {
     for(const element of cancelVacationBtn){
         element.addEventListener('click', async (e) => {
         const vacationId = e.target.parentElement.getAttribute('key');
-        const result = await fetch(`https://back-office-phase2.onrender.com/api/vacation/${vacationId}`, {
+        const result = await fetch(`http://localhost:4000/api/vacation/${vacationId}`, {
             method: 'put',
             headers:{
                 "Content-Type": "application/json",
@@ -47,7 +47,7 @@ const renderUserInfo = (user) => {
 }
 
 const getEmployeeInfo = async (id)=>{
-  const user = await fetch(`https://back-office-phase2.onrender.com/api/user/id/${id}`,{
+  const user = await fetch(`http://localhost:4000/api/user/id/${id}`,{
     method:"GET",
     headers:{
       "Content-Type": "application/json",
@@ -57,7 +57,7 @@ const getEmployeeInfo = async (id)=>{
 }
 
 const getTokenInfo = async (req,res) => {
-  const tokenInfo = await fetch("https://back-office-phase2.onrender.com/api/auth/token-info",{
+  const tokenInfo = await fetch("http://localhost:4000/api/auth/token-info",{
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
@@ -84,7 +84,7 @@ const renderVacations = async (vacations, userId) => {
 
 
 const getEmployeeVacations = async (employeeId) =>{
-  const vacations = await fetch(`https://back-office-phase2.onrender.com/api/vacation/employee/${employeeId}`,{
+  const vacations = await fetch(`http://localhost:4000/api/vacation/employee/${employeeId}`,{
     method: 'GET',
     headers:{
       "Content-Type": "application/json",
@@ -146,7 +146,7 @@ const addVacation = async (newVacation) => {
     }
 
     const response  = await fetch(
-        `https://back-office-phase2.onrender.com/api/vacation` , {
+        `http://localhost:4000/api/vacation` , {
             method: 'POST',
             headers: {
                 "Content-Type": "application/json",

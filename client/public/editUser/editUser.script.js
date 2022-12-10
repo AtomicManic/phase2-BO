@@ -7,8 +7,8 @@ const addressInput = document.getElementById('addressInput');
 
 
 logoutBtn.addEventListener("click", async () => {
-  await fetch("https://back-office-phase2.onrender.com/api/auth/logout");
-  window.location.replace("https://back-office-phase2.onrender.com/index.html");
+  await fetch("http://localhost:4000/api/auth/logout");
+  window.location.replace("http://localhost:4000/index.html");
 });
 
 window.onload = async () => {
@@ -43,7 +43,7 @@ const updateEmployee = async (updateInfo) => {
         vacation_days: updateInfo.vacation_days
     }
     
-    const result = await fetch(`https://back-office-phase2.onrender.com/api/user/update/${updateInfo.id}`,{
+    const result = await fetch(`http://localhost:4000/api/user/update/${updateInfo.id}`,{
         method: 'put',
         headers: {
             "Content-Type": "application/json",
@@ -61,7 +61,7 @@ const insertToInputs = (user) => {
 }
 
 const getUser = async (id) => {
-  const user = await fetch(`https://back-office-phase2.onrender.com/api/user/id/${id}`,{
+  const user = await fetch(`http://localhost:4000/api/user/id/${id}`,{
     method:"GET",
     headers:{
       "Content-Type": "application/json",

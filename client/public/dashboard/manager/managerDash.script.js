@@ -6,13 +6,13 @@ let askVacationBtns;
 const bulkImportBtn = document.getElementById('bulkImportBtn');
 
 bulkImportBtn.addEventListener('click', async (e) => {
-    window.location.replace('https://back-office-phase2.onrender.com/public/dashboard/bulk-import');
+    window.location.replace('http://localhost:4000/public/dashboard/bulk-import');
 })
 
 
 logoutBtn.addEventListener("click", async () => {
-  await fetch("https://back-office-phase2.onrender.com/api/auth/logout");
-  window.location.replace("https://back-office-phase2.onrender.com/index.html");
+  await fetch("http://localhost:4000/api/auth/logout");
+  window.location.replace("http://localhost:4000/index.html");
 });
 
 window.onload = async () => {
@@ -38,13 +38,13 @@ window.onload = async () => {
 
 const goToVacationPage = (e) => {
     const employeeId = e.target.parentElement.parentElement.getAttribute('key');
-    window.location.replace(`https://back-office-phase2.onrender.com/public/dashboard/vacation/${employeeId}`);
+    window.location.replace(`http://localhost:4000/public/dashboard/vacation/${employeeId}`);
 }
 
 const handleEdit = async (e) => {
     e.preventDefault();
     const employeeId = e.target.parentElement.parentElement.getAttribute('key');
-    window.location.href = `https://back-office-phase2.onrender.com/public/dashboard/edit-employee/${employeeId}`;
+    window.location.href = `http://localhost:4000/public/dashboard/edit-employee/${employeeId}`;
 }
 
 
@@ -59,7 +59,7 @@ const handleRemove = async (e) => {
 
 
 const getAllEmployees = async () => {
-    const employees = await fetch('https://back-office-phase2.onrender.com/api/user/list',{
+    const employees = await fetch('http://localhost:4000/api/user/list',{
         method: 'GET',
         headers: {
         "Content-Type": "application/json",
@@ -69,7 +69,7 @@ const getAllEmployees = async () => {
 }
 
 const removeEmployee = async (employeeId) => {
-    const result = await fetch(`https://back-office-phase2.onrender.com/api/user/delete/${employeeId}`,{
+    const result = await fetch(`http://localhost:4000/api/user/delete/${employeeId}`,{
         method:'delete',
         headers:{
             "Content-Type": "application/json",

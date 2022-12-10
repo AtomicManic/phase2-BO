@@ -49,7 +49,7 @@ uploadFileEle.addEventListener("focus" , () => {
 
 const bulkImport = async (fileName) => {
     const response = await fetch(
-        `https://back-office-phase2.onrender.com/api/user/bulk-import/${fileName}`  ,{
+        `https://localhost:4000/api/user/bulk-import/${fileName}`  ,{
             method: "post",
             headers: {
                 "Content-Type": "application/json"
