@@ -91,11 +91,15 @@ const handleVacationDays = async (req, res, days, employeeId) => {
   return updatedUser;
 };
 
-const addUsers = (req, res, csvUsers) => {
-  users.users.push(...csvUsers);
-  return {
-    message: "success!",
-  };
+const addUsers = async (req, res, newUsers) => {
+  if (!newUsers) throw new Error("badRequest");
+  try {
+    const addedUser = await User.insertMany(newUsers);
+    if (!addedUser) throw new Error("insertFailed");
+    return ({message: "bulk complete"});
+  } catch (err) {
+    return ({message: "failed"});
+  }
 };
 
 module.exports = {

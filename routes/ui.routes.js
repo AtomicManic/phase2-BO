@@ -42,4 +42,14 @@ router.get('/dashboard/vacation/:id', (req,res) => {
   } 
   res.sendFile(path.join(__dirname, "..", "client", "public", "vacation","vacation.html"));
 })
+
+router.get('/dashboard/bulk-import', (req,res) => {
+  const token = req.cookies.token;
+  const { userObj } = jwt.verify(token, process.env.TOKEN_SECRET);
+  if(!userObj){
+    res.redirect("/dashboard");
+    res.end();
+  } 
+  res.sendFile(path.join(__dirname, "..", "client", "public", "bulkImport","bulkImport.html"));
+})
 module.exports = router;

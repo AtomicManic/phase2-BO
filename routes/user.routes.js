@@ -17,6 +17,6 @@ router.get("/id/:id", getUserWithId);
 router.delete("/delete/:id", removeUser);
 router.put("/add-days", addVacationDays);
 router.post("/vacation-days", calcVacationDays);
-router.post("/bulk-import", importCsv);
+router.post("/bulk-import/:filename", importCsv);
 
 module.exports = router;
