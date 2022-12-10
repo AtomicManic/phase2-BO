@@ -15,12 +15,12 @@ const askVacationBtn = document.getElementById('askVacationBtn');
 askVacationBtn.addEventListener('click', async (e) => {
   e.preventDefault();
   const tokenInfo = await getTokenInfo();
-  window.location.replace(`http://localhost:4000/public/dashboard/vacation/${tokenInfo.id}`)
+  window.location.replace(`https://back-office-phase2.onrender.com/public/dashboard/vacation/${tokenInfo.id}`)
 })
 
 logoutBtn.addEventListener("click", async () => {
-  await fetch("http://localhost:4000/api/auth/logout");
-  window.location.replace("http://localhost:4000/index.html");
+  await fetch("https://back-office-phase2.onrender.com/api/auth/logout");
+  window.location.replace("https://back-office-phase2.onrender.com/index.html");
 });
 
 changeAddressBtn.addEventListener('click', ()=>{
@@ -47,7 +47,7 @@ addressForm.addEventListener('submit', async (e) =>{
 })
 
 const updateAddress = async (address, tokenInfo) => {
-  const response = await fetch(`http://localhost:4000/api/user/update/${tokenInfo.id}`,{
+  const response = await fetch(`https://back-office-phase2.onrender.com/api/user/update/${tokenInfo.id}`,{
     method:'put',
     headers: {
       "Content-Type": "application/json",
@@ -68,7 +68,7 @@ window.onload = async () => {
 
 
 const getTokenInfo = async (req,res) => {
-  const tokenInfo = await fetch("http://localhost:4000/api/auth/token-info",{
+  const tokenInfo = await fetch("https://back-office-phase2.onrender.com/api/auth/token-info",{
     method: 'GET',
     headers: {
       "Content-Type": "application/json",
@@ -78,7 +78,7 @@ const getTokenInfo = async (req,res) => {
 }
 
 const getEmployeeInfo = async (id)=>{
-  const user = await fetch(`http://localhost:4000/api/user/id/${id}`,{
+  const user = await fetch(`https://back-office-phase2.onrender.com/api/user/id/${id}`,{
     method:"GET",
     headers:{
       "Content-Type": "application/json",
@@ -88,7 +88,7 @@ const getEmployeeInfo = async (id)=>{
 }
 
 const getEmployeeVacations = async (employeeId) =>{
-  const vacations = await fetch(`http://localhost:4000/api/vacation/employee/${employeeId}`,{
+  const vacations = await fetch(`https://back-office-phase2.onrender.com/api/vacation/employee/${employeeId}`,{
     method: 'GET',
     headers:{
       "Content-Type": "application/json",
