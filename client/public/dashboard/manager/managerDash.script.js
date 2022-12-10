@@ -5,8 +5,8 @@ let editEmployeeBtns;
 let askVacationBtns;
 
 logoutBtn.addEventListener("click", async () => {
-  await fetch("http://localhost:4000/api/auth/logout");
-  window.location.replace("http://localhost:4000/index.html");
+  await fetch("https://back-office-phase2.onrender.com/api/auth/logout");
+  window.location.replace("https://back-office-phase2.onrender.com/index.html");
 });
 
 window.onload = async () => {
@@ -32,7 +32,7 @@ window.onload = async () => {
 
 const goToVacationPage = (e) => {
     const employeeId = e.target.parentElement.parentElement.getAttribute('key');
-    window.location.replace(`http://localhost:4000/public/dashboard/vacation/${employeeId}`);
+    window.location.replace(`https://back-office-phase2.onrender.com/public/dashboard/vacation/${employeeId}`);
 }
 
 const handleEdit = async (e) => {
@@ -53,7 +53,7 @@ const handleRemove = async (e) => {
 
 
 const getAllEmployees = async () => {
-    const employees = await fetch('http://localhost:4000/api/user/list',{
+    const employees = await fetch('https://back-office-phase2.onrender.com/api/user/list',{
         method: 'GET',
         headers: {
         "Content-Type": "application/json",
@@ -63,7 +63,7 @@ const getAllEmployees = async () => {
 }
 
 const removeEmployee = async (employeeId) => {
-    const result = await fetch(`http://localhost:4000/api/user/delete/${employeeId}`,{
+    const result = await fetch(`https://back-office-phase2.onrender.com/api/user/delete/${employeeId}`,{
         method:'delete',
         headers:{
             "Content-Type": "application/json",
