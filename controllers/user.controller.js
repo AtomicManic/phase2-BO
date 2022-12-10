@@ -110,11 +110,10 @@ exports.calcVacationDays = async (req, res, next) => {
 };
 
 exports.importCsv = async (req, res) => {
-  const csvFileName = req.query.filename; //get file
+  const csvFileName = req.query.filename;
 
   CSVtoJSON({
     colParser: {
-      //change type from string to number
       vacation_days: {
         cellParser: "number",
       },
@@ -123,9 +122,9 @@ exports.importCsv = async (req, res) => {
       },
     },
   })
-    .fromFile(`./data/${csvFileName}`) //from csv file
+    .fromFile(`./data/${csvFileName}`)
     .then((csvUsers) => {
-      const result = usersService.addUsers(csvUsers); //users DAL - insert many
+      const result = usersService.addUsers(csvUsers); 
       if (result.message === "success!") {
         res.json({ message: "all done! users from csv imported to json file" });
       } else {

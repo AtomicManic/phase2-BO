@@ -39,13 +39,33 @@ header {
   margin-bottom: 25px;
 }
 
+.formContainer {
+  margin: 0 auto;
+  margin-bottom: 20px;
+  display: none;
+}
+
+.formContainer button {
+  height: 20px;
+  width: 65px;
+}
+
+form input {
+  border-radius: 20px;
+  border: 1px black solid;
+  width: 200px;
+}
+
+#closeBtn {
+  background-color: pink;
+}
+
 button {
   width: 150px;
   height: 50px;
   border: none;
   border-radius: 20px;
   font-size: 16px;
-
   background-color: #f5cb5c;
 }
 
@@ -114,16 +134,24 @@ button:hover {
   text-align: center;
 }
 
-#approved {
+.approved {
   color: green;
   background-color: greenyellow;
 }
 
-#cancelled {
+.cancelled {
   color: red;
   background-color: pink;
 }
 
 .txt {
   font-weight: bold;
+}
+
+.show {
+  display: block;
+}
+
+.hide {
+  display: none;
 }

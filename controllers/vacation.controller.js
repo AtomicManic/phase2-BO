@@ -5,7 +5,6 @@ const {
   getVacation,
   cancelVacation,
   getEmployeeVacations,
-  vacationErrorHandler,
   getVacations,
 } = require("./../DAL/vacation.DAL");
 const fetch = require("node-fetch");
@@ -13,11 +12,10 @@ const vacationErrMsg = require("./../src/errorMesseges/vacation.errors");
 const userErrMsg = require("./../src/errorMesseges/user.errors");
 const res = require("express/lib/response");
 const { isValidObjectId } = require("../validators/mongoId.validator");
-// GOOD
+
 const getVacationDetails = async (req, res, next) => {
   try {
     if (!req.params.id) throw new Error("vacationNotFound");
-    console.log("here");
     const vacation = await getVacation(req, res);
     res.status(200).json({ vacation });
   } catch (error) {
@@ -44,7 +42,6 @@ const getAllEmployeeVacations = async (req, res, next) => {
   }
 };
 
-// GOOD
 const cancelVacationStatus = async (req, res, next) => {
   try {
     if (!req.params.id) throw new Error("badRequest");
@@ -56,15 +53,12 @@ const cancelVacationStatus = async (req, res, next) => {
 
     const result = await cancelVacation(req, res);
     if (!result) throw new Error("unableToCancel");
-    console.log(result);
     const daysReturnedToUser = await datesDiffInDays(
       new Date(result.start_date),
       new Date(result.end_date)
     );
 
-    // send vacation id to handle vacation
     const employee_id = result.employee_id;
-    console.log(employee_id);
     const updatedUser = await handleVacationDays(
       req,
       res,
@@ -78,7 +72,6 @@ const cancelVacationStatus = async (req, res, next) => {
       Length_of_cancelled_vacation: `${daysReturnedToUser}`,
     });
   } catch (error) {
-    console.log(error);
     next({
       status:
         vacationErrMsg[error.message]?.status ||
@@ -90,80 +83,61 @@ const cancelVacationStatus = async (req, res, next) => {
   }
 };
 
-// GOOD
 const createNewVacation = async (req, res, next) => {
   try {
-    //   const role = req.session.role;
-    //   const employeeId = req.params.id;
-    //   const token = req.cookies.token;
-    //   const { userObj } = jwt.verify(token, process.env.TOKEN_SECRET);
+      const token = req.cookies.token;
+      const { userObj } = jwt.verify(token, process.env.TOKEN_SECRET);
+      const user = await getUserById(req, res);
+      if (!user) throw new Error("notFound");
+      const vacationDetails = req.body;
+      if (!req.body) throw new Error("badRequest");
+    
+      if (!vacationDetails.employee_id) throw new Error("idNotExist");
 
-    // get who asked for vacation
-    const user = await getUserById(req, res);
-    if (!user) throw new Error("notFound");
-    console.log(user);
-    // get vacation dates and the user to grant vacation to from request
-    if (!req.body) throw new Error("badRequest");
-    const vacationDetails = req.body;
-    if (!vacationDetails.employee_id) throw new Error("idNotExist");
-
-    // get the number of vacation days asked
-    const vacationL = await datesDiffInDays(
-      new Date(vacationDetails.start_date),
-      new Date(vacationDetails.end_date)
-    );
-    console.log(vacationL);
-
-    if (vacationL < 0 || !vacationL) throw new Error("badRequest");
-    // check role
-    if ("employee" === "manager") {
-      // ***will check from token***
-      // if manager - post vacation automatically
-      const newVacation = postVacation(vacationDetails, vacationL);
-      if (!newVacation) throw new Error("UnableToUpdate");
-      res.status(200).json({ newVacation });
-    } else {
-      console.log("employee");
-      // if employee:
-      // get and filter all approved vacations
-      const vacations = await getVacations(req, res);
-      if (!vacations && vacations.length < 0)
-        throw new Error("NoVacationsFound");
-
-      const filteredVacations = vacations.filter(
-        (vacation) => vacation.status === "approved"
+      const vacationL = await datesDiffInDays(
+        new Date(vacationDetails.start_date),
+        new Date(vacationDetails.end_date)
       );
-      if (!filteredVacations) throw new Error("unableToFilter");
-      console.log(filteredVacations);
-      // validate vacation dates - no other vacations on these dates and no holidays
-      const answer = await validateVacationDays(
-        req,
-        res,
-        vacationDetails.start_date,
-        vacationDetails.end_date,
-        user,
-        filteredVacations,
-        vacationL
-      );
+    
 
-      // if vacation is declined:
-      if (answer.message === "decline") throw new Error("vacationDeclined");
-      // res.status(400).json({ answer });
+      if (vacationL < 0 || !vacationL) throw new Error("badRequest");
+      if (userObj.role === "manager") {
+        const newVacation = await postVacation(vacationDetails, vacationL);
+        if (!newVacation) throw new Error("UnableToUpdate");
+        res.status(200).json({ newVacation });
+      } else {
+        const vacations = await getVacations(req, res);
+        if (!vacations && vacations.length < 0)
+          throw new Error("NoVacationsFound");
 
-      // save vacation to db
-      const vacation = await postVacation(vacationDetails, vacationL);
-      if (!vacation) throw new Error("vacationNotSaved");
-      console.log(vacationL);
-      // change the users vacation days accordingly
-      const changedUser = await handleVacationDays(
-        req,
-        res,
-        0 - vacationL,
-        null
-      );
-      if (!changedUser) throw new Error("notUpdated");
-      res.status(200).json({ messgae: "Vacation approved!" });
-    }
+        const filteredVacations = vacations.filter(
+          (vacation) => vacation.status === "approved"
+        );
+        if (!filteredVacations) throw new Error("unableToFilter");
+      
+        const answer = await validateVacationDays(
+          res,
+          vacationDetails.start_date,
+          vacationDetails.end_date,
+          user,
+          filteredVacations,
+          vacationL
+        );
+      
+        if (answer.message === "decline") throw new Error("vacationDeclined");
+        
+        const vacation = await postVacation(vacationDetails, vacationL);
+        if (!vacation) throw new Error("vacationNotSaved");
+      
+        const changedUser = await handleVacationDays(
+          req,
+          res,
+          0 - vacationL,
+          null
+        );
+        if (!changedUser) throw new Error("notUpdated");
+        res.status(200).json({ messgae: "Vacation approved!" });
+      }
   } catch (error) {
     next({
       status:
@@ -176,7 +150,6 @@ const createNewVacation = async (req, res, next) => {
   }
 };
 
-// ****** Utils ******* //
 const datesDiffInDays = async (start_date, end_date) => {
   const date2 = Math.floor(end_date.getTime() / (24 * 60 * 60 * 1000));
   const date1 = Math.floor(start_date.getTime() / (24 * 60 * 60 * 1000));
@@ -185,7 +158,6 @@ const datesDiffInDays = async (start_date, end_date) => {
 };
 
 const validateVacationDays = async (
-  req,
   res,
   start_date,
   end_date,
@@ -195,10 +167,9 @@ const validateVacationDays = async (
 ) => {
   const requestedStartDate = new Date(start_date);
   const requestedEndDate = new Date(end_date);
-
-  // Check if user has enough days
-  console.log(userReceiver.vacation_days);
+  
   if (vacationL > userReceiver.vacation_days) {
+    
     return {
       message: "decline",
       vacationLength: `${vacationL}`,
@@ -206,9 +177,7 @@ const validateVacationDays = async (
     };
   }
 
-  // Chack if dates are available
   for (const key in vacations) {
-    //loop through vacations
     let start = new Date(vacations[key].start_date);
     let end = new Date(vacations[key].end_date);
 
@@ -218,8 +187,8 @@ const validateVacationDays = async (
       requestedStartDate,
       requestedEndDate
     );
-
     if (isOverlap) {
+      
       return {
         message: "decline",
         vacationLength: `${vacationL}`,
@@ -230,17 +199,14 @@ const validateVacationDays = async (
     }
   }
 
-  // Check holidays overlap
   const response = await fetch(
     "https://calendarific.com/api/v2/holidays?&api_key=a1e18904d65721020f4325e8fd7fd1197b56dde4&country=IL&year=2023"
   );
   if (!response) throw new Error("notGetHolidays");
   const data = await response.json();
   for (const i in data.response.holidays) {
-    // get day from data days
     let holiday = new Date(data.response.holidays[i].date.iso);
 
-    //   check if is in year/month
     if (
       holiday.getMonth() === requestedStartDate.getMonth() &&
       holiday.getFullYear() === requestedStartDate.getFullYear()
@@ -262,7 +228,6 @@ const validateVacationDays = async (
   }
   return res.status(200).json({
     message: "approved!",
-    // vacationRequestedStartDateLength: `${vacationL}`,
   });
 };
 
@@ -273,28 +238,22 @@ const checkVacationOverlap = (
   reqEnd,
   next
 ) => {
-  console.log(existingStart, reqStart);
-  if (reqStart > reqEnd) return true;
-  if (existingStart === reqStart || existingEnd === reqEnd) return true;
-  if (
-    existingStart.getMonth() === reqStart.getMonth() ||
-    existingStart.getFullYear() === reqStart.getFullYear()
-  ) {
-    if (
-      existingStart.getDate() === reqStart.getDate() ||
-      existingEnd.getDate() === reqEnd.getDate()
-    ) {
-      // overlaping
-      return true;
-    }
+  const reqStartDate = reqStart.getTime();
+  const reqEndDate = reqEnd.getTime();
+  const exStartDate = existingStart.getTime();
+  const exEndDate = existingEnd.getTime();
+  
+  if(reqStartDate > reqEndDate) return true;
+  if(reqStartDate === exStartDate || reqStartDate === exEndDate){
+    return true;
+  };
+  if(reqEndDate === exStartDate || reqEndDate === exEndDate) return true;
+  if(reqStartDate < exStartDate && reqEndDate > exEndDate) return true;
+  if(reqStartDate > exStartDate && reqEndDate < exEndDate) return true;
+  if(reqStartDate > exStartDate && reqStartDate < exEndDate) return true;
+  if(reqEndDate > exStartDate && reqEndDate < exEndDate) return true;
 
-    if (reqEnd > existingStart) return true; //overlaping
-    if (reqStart < existingEnd) return true; //overlaping
-
-    return false;
-  } else {
-    return false;
-  }
+  return false;
 };
 
 const checkHolidayOverlap = (startDateCheck, endDateCheck, holiday) => {

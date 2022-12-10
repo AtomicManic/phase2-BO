@@ -112,3 +112,16 @@ exports.loginRequired = async (req, res, next) => {
       .json({ message: authErrMsg.unverified.message });
   }
 };
+
+exports.getInfoFromToken = async (req,res,next) => {
+  const token = req.cookies.token;
+  try {
+    const { userObj } = jwt.verify(token, process.env.TOKEN_SECRET);
+    res.status(200).json(userObj);
+  } catch (error) {
+    next({
+      status:404,
+      message:'token not found'
+    })
+  }
+}

@@ -37,7 +37,6 @@ const cancelVacation = async (req, res) => {
 };
 
 const postVacation = (vacationDetails, vacationL) => {
-  console.log(vacationDetails);
   if (
     !vacationDetails ||
     !vacationL ||
@@ -61,11 +60,6 @@ const postVacation = (vacationDetails, vacationL) => {
 
   if (!result) throw new Error("vacationNotSaved");
   return result;
-  // return {
-  //   message: "success",
-  //   length: `${vacationL}`,
-  //   dates: `${start_date} - ${end_date}`,
-  // };
 };
 
 const vacationErrorHandler = (req, res, head, message) => {

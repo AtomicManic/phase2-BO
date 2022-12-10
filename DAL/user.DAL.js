@@ -55,7 +55,7 @@ const updateUser = async (req, res) => {
   } = req;
   if (!isValidObjectId(id)) throw new Error("idNotExist");
 
-  const oldUser = await User.findByIdAndUpdate({ _id: id }, body);
+  const oldUser = await User.findByIdAndUpdate({ _id: id }, body, {new: true});
   if (!oldUser) throw new Error("notUpdated");
   return oldUser;
 };
@@ -75,7 +75,6 @@ const addAutoVacationDays = async (req, res) => {
 };
 
 const handleVacationDays = async (req, res, days, employeeId) => {
-  console.log(employeeId || req.body.employee_id, days);
   let id;
   if (employeeId) {
     id = employeeId;
@@ -94,8 +93,6 @@ const handleVacationDays = async (req, res, days, employeeId) => {
 
 const addUsers = (req, res, csvUsers) => {
   users.users.push(...csvUsers);
-  //add to db..
-  console.log(JSON.stringify(users, null, 2));
   return {
     message: "success!",
   };

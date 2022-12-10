@@ -14,7 +14,9 @@ loginForm.addEventListener("submit", async (e) => {
     } else {
       errorMsg.style.display = "block";
     }
-  } catch (error) {}
+  } catch (error) {
+    
+  }
 });
 
 emailInpt.addEventListener("focus", () => {

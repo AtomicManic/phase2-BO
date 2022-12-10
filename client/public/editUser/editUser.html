@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="/editUser/editUser.style.css"
+    />
+    <title>Edit User</title>
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Dashboard</h1>
+        <a id="logoutBtn">Logout</a>
+      </header>
+      <div class="formContainer">
+        <h2>Edit <span id="usernameTxt">{username}</span> Details</h2>
+        <form method="post" id="editEmployeeForm">
+          <label for="nameInput">Name:</label>
+          <input type="text" name="name" id="nameInput" />
+          <label for="emailInput">Email:</label>
+          <input type="email" name="email" id="emailInput" />
+          <label for="addressInput">Address:</label>
+          <input type="text" name="address" id="addressInput" />
+          <label for="vacationDaysInput">Vacation Days:</label>
+          <input
+            type="number"
+            min="0"
+            name="vacation_days"
+            id="vacationDaysInput"
+          />
+          <button type="submit" id="employeeRegisterBtn">Edit</button>
+        </form>
+      </div>
+    </div>
+    <script src="/editUser/editUser.script.js"></script>
+  </body>
+</html>
