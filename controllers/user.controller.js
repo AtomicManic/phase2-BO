@@ -151,6 +151,9 @@ exports.importCsv = async (req, res , next) => {
           const bulk = await addUsers(req, res, newUsers);
           if (!bulk) {
             throw new Error("insert failed");
+          }
+          if(bulk.message === "failed") {
+            res.status(402).json({message: "failed"});
           } else {
             res.status(200).json({message: "bulk complete"});
           }
@@ -162,4 +165,3 @@ exports.importCsv = async (req, res , next) => {
     });
   }
 }
-
