@@ -38,7 +38,7 @@ const goToVacationPage = (e) => {
 const handleEdit = async (e) => {
     e.preventDefault();
     const employeeId = e.target.parentElement.parentElement.getAttribute('key');
-    window.location.href = window.location.origin+`/public/dashboard/edit-employee/${employeeId}`;
+    window.location.href = `https://back-office-phase2.onrender.com/public/dashboard/edit-employee/${employeeId}`;
 }
 
 
