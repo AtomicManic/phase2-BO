@@ -43,7 +43,7 @@ window.onload = async () => {
 }
 
 const renderUserInfo = (user) => {
-    employeeInfo.innerHTML=`Name:${user.name}, VacationdDayesLeft:${user.vacation_days}`
+    employeeInfo.innerHTML=`Name:${user.name}, VacationdDayesLeft:${parseFloat(user.vacation_days.toFixed(2))}`
 }
 
 const getEmployeeInfo = async (id)=>{
