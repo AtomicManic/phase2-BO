@@ -11,12 +11,12 @@ const employeeInfo = document.getElementById('employeeInfo');
 
 window.onload = async () => {
     const tokenInfo = await getTokenInfo();
+    const pathName = location.pathname;
+    const pathStrSplit = pathName.split('/');
+    const userId = pathStrSplit.pop();
+    const {user} = await getEmployeeInfo(userId)
+    renderUserInfo(user);
     if(tokenInfo.role === 'manager'){
-        const pathName = location.pathname;
-        const pathStrSplit = pathName.split('/');
-        const userId = pathStrSplit.pop();
-        const {user} = await getEmployeeInfo(userId)
-        renderUserInfo(user);
         const vacations = await getEmployeeVacations(userId);
         renderVacations(vacations.result ,userId);
     }
