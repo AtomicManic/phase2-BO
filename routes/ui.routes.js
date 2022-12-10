@@ -23,4 +23,23 @@ router.get("/dashboard", (req, res) => {
   }
 });
 
+router.get('/dashboard/edit-employee/:id', (req,res) =>{
+  const token = req.cookies.token;
+  const { userObj } = jwt.verify(token, process.env.TOKEN_SECRET);
+  if(userObj.role === 'employee' || !userObj){
+    res.redirect("/");
+    res.end();
+  } 
+  res.sendFile(path.join(__dirname, "..", "client", "public", "editUser","editUser.html"));
+});
+
+router.get('/dashboard/vacation/:id', (req,res) => {
+  const token = req.cookies.token;
+  const { userObj } = jwt.verify(token, process.env.TOKEN_SECRET);
+  if(!userObj){
+    res.redirect("/");
+    res.end();
+  } 
+  res.sendFile(path.join(__dirname, "..", "client", "public", "vacation","vacation.html"));
+})
 module.exports = router;
