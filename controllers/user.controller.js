@@ -109,26 +109,53 @@ exports.calcVacationDays = async (req, res, next) => {
   }
 };
 
-exports.importCsv = async (req, res) => {
-  const csvFileName = req.query.filename;
+exports.importCsv = async (req, res , next) => {
 
-  CSVtoJSON({
-    colParser: {
-      vacation_days: {
-        cellParser: "number",
+  try {
+    const csvFile = req.params.filename;
+
+    if(!csvFile) {
+      throw new Error("Missing file name");
+    }
+
+    CSVtoJSON({
+      colParser: {
+        //change type from string to number
+        vacation_days: {
+          cellParser: "number",
+        }
       },
-      id: {
-        cellParser: "number",
-      },
-    },
-  })
-    .fromFile(`./data/${csvFileName}`)
-    .then((csvUsers) => {
-      const result = usersService.addUsers(csvUsers); 
-      if (result.message === "success!") {
-        res.json({ message: "all done! users from csv imported to json file" });
-      } else {
-        res.json({ message: "something went wrong.." });
-      }
+    })
+        .fromFile(`data/${csvFile}`)       //from csv file
+        .then(async (csvUsers) => {
+
+          const newUsers = [];
+
+          for(const i in csvUsers) {
+
+            const validationResult = registerValidator(csvUsers[i]);
+            if (!validationResult) {
+              throw new Error();
+            }
+            const hashedPassword = await bcrypt.hash(csvUsers[i].password, 12);
+            const user = { ...csvUsers[i], password: hashedPassword };
+            newUsers.push(user);
+          }
+          console.log(newUsers);
+          const bulk = await addUsers(req, res, newUsers);
+          if (!bulk) {
+            throw new Error("insert failed");
+          }
+          if(bulk.message === "failed") {
+            res.status(402).json({message: "failed"});
+          } else {
+            res.status(200).json({message: "bulk complete"});
+          }
+        });
+  } catch (error) {
+    next({
+      status: userErrMsg[error.message]?.status,
+      message: userErrMsg[error.message]?.message,
     });
-};
+  }
+}

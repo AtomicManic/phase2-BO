@@ -3,6 +3,12 @@ const employeeList = document.getElementById('employeesList');
 let removeEmployeeBtns;
 let editEmployeeBtns;
 let askVacationBtns;
+const bulkImportBtn = document.getElementById('bulkImportBtn');
+
+bulkImportBtn.addEventListener('click', async (e) => {
+    window.location.replace('https://back-office-phase2.onrender.com/public/dashboard/bulk-import');
+})
+
 
 logoutBtn.addEventListener("click", async () => {
   await fetch("https://back-office-phase2.onrender.com/api/auth/logout");
